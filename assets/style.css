@@ -127,9 +127,11 @@ header {
 	position: absolute;
 }
 #banner .arrow_left {
+	position: fixed;
 	left: 10px;
 }
 #banner .arrow_right {
+	position: fixed;
 	right: 10px;
 }
 /* Gestion des points du carrousel */
