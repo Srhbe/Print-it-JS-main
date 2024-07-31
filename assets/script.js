@@ -1,4 +1,5 @@
 const slides = [
+	
 	{
 		"image":"slide1.jpg",
 		"tagLine":"Impressions tous formats <span>en boutique et en ligne</span>"
@@ -16,3 +17,17 @@ const slides = [
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
 	}
 ]
+
+
+
+// Gestion des clics sur la flèche gauche, récupération dans le DOM, const car la valeur ne sera pas réassignée
+const arrowLeft = document.querySelector("#banner .arrow_left");
+arrowLeft.addEventListener("click", function() {
+    console.log("left click");
+});
+
+// Gestion des clics sur la flèche droite
+const arrowRight = document.querySelector("#banner .arrow_right");
+arrowRight.addEventListener("click", function() {
+    console.log("right click");
+})
