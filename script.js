@@ -19,15 +19,21 @@ const slides = [
 ]
 
 
-
 let currentIndex = 0;
 
+const banner = document.getElementById('banner');
 const bannerImg = document.querySelector(".banner-img");
 const bannerText = document.querySelector("#banner p");
-const dots = document.querySelectorAll(".dot");
+
+// Création de l'élement flèche gauche
+const arrowLeft = document.createElement('div');
+arrowLeft.classList.add('arrow', 'arrow_left');
+const imgLeft = document.createElement('img');
+imgLeft.src = './assets/images/arrow_left.png'; 
+imgLeft.alt = 'Flèche gauche';
+arrowLeft.appendChild(imgLeft);
 
 // Gestion des clics sur la flèche gauche
-const arrowLeft = document.querySelector("#banner .arrow_left"); // Récupération dans le DOM, const car la valeur ne sera pas réassignée
 arrowLeft.addEventListener("click", function() {
     console.log("left click");
     if (currentIndex === 0) { // vérifie que c'est la premiere diapositive
@@ -37,8 +43,15 @@ arrowLeft.addEventListener("click", function() {
     }
 });
 
+// Création de l'élement flèche droite
+const arrowRight = document.createElement('div');
+arrowRight.classList.add('arrow', 'arrow_right');
+const imgRight = document.createElement('img');
+imgRight.src = './assets/images/arrow_right.png';
+imgRight.alt = 'Flèche droite';
+arrowRight.appendChild(imgRight);
+
 // Gestion des clics sur la flèche droite
-const arrowRight = document.querySelector("#banner .arrow_right");
 arrowRight.addEventListener("click", function() {
     console.log("right click");
     if (currentIndex === slides.length - 1) {
@@ -48,13 +61,38 @@ arrowRight.addEventListener("click", function() {
     }
 });
 
+// ajout des flèches à la bannière
+banner.appendChild(arrowLeft);
+banner.appendChild(arrowRight);
+
+// Créer et ajouter les points de navigation
+function createDots() {
+    const dotsContainer = document.createElement('div');
+    dotsContainer.classList.add('dots');
+
+    slides.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (i === currentIndex) {
+            dot.classList.add('dot_selected');
+        }
+        dot.addEventListener('click', () => {
+            updateSlide(i);
+        });
+        dotsContainer.appendChild(dot);
+    });
+
+    banner.appendChild(dotsContainer);
+}
+
 function updateSlide(newIndex) {
-    if (newIndex < 0 || newIndex >= dots.length) { // vérifier si l'index est hors limite pour les dots
+    if (newIndex < 0 || newIndex >= slides.length) { // vérifier si l'index est hors limite pour les slides
         console.error("Index hors limites :", newIndex); 
         return; // stop l'exécution si l'index est invalide
     }
 
     // Retirer la classe 'dot_selected' du point actuel
+    const dots = document.querySelectorAll(".dot"); // récupération des points
     if (dots[currentIndex]) {
         dots[currentIndex].classList.remove("dot_selected"); 
     }
@@ -73,4 +111,5 @@ function updateSlide(newIndex) {
 }
 
 // Initialiser le carrousel avec la première diapositive quand la page est chargée
+createDots();
 updateSlide(0);
